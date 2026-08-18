@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="{% static 'css/style.css' %}"></head>
+<body>
+<main>
+<h2>Report a Trail</h2>
+<form method="post">
+    {% csrf_token %}
+    <label>Name</label><input type="text" name="name" required>
+    <label>Email</label><input type="email" name="email" required>
+    <label>Trail</label><input type="text" name="trail" required>
+    <label>Note</label><textarea name="note"></textarea>
+    <button type="submit">Submit</button>
+</form>
+</main>
+</body></html>
