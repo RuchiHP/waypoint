@@ -1,9 +1,5 @@
-{% load static %}
-<!DOCTYPE html>
-<html><head><link rel="stylesheet" href="{% static 'css/style.css' %}"></head>
-<body>
-<main>
+{% extends "base.html" %}
+{% block content %}
 <h2>Thank you, {{ name }}!</h2>
 <p>Your trail report was received.</p>
-</main>
-</body></html>
+{% endblock %}
