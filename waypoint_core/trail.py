@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from distance import Distance
+from waypoint_core.distance import Distance
 
 
 class Trail(ABC):

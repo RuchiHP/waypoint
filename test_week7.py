@@ -1,6 +1,6 @@
-from distance import Distance
-from trail import Trail
-from itinerary import Itinerary
+from waypoint_core.distance import Distance
+from waypoint_core.trail import Trail
+from waypoint_core.itinerary import Itinerary
 
 # 1. Distance rejects negative magnitude
 try:

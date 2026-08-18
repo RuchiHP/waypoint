@@ -1,4 +1,4 @@
-from distance import Distance
+from waypoint_core.distance import Distance
 
 
 class Itinerary:

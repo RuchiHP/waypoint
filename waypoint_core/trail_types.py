@@ -1,4 +1,4 @@
-from trail import Trail
+from waypoint_core.trail import Trail
 
 
 # ---- WP-201: concrete trail types with their own pacing ----
