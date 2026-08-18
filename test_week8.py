@@ -1,6 +1,6 @@
-from distance import Distance
-from trail import Trail
-from trail_types import (
+from waypoint_core.distance import Distance
+from waypoint_core.trail import Trail
+from waypoint_core.trail_types import (
     DayHike, BackpackingRoute, TrailRun, GuidedDayHike,
     RatedGuidedDayHike, FakeTrail,
 )
