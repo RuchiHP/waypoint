@@ -7,8 +7,8 @@
     <tr>
         <td>{{ forloop.counter }}</td>
         <td>{{ trail.name }}</td>
-        <td>{{ trail.distance|floatformat:1 }}</td>
-        <td>{{ trail.elevation }}</td>
+        <td>{{ trail.distance_km|floatformat:1 }}</td>
+        <td>{{ trail.elevation_gain }}</td>
         <td>
             {% if not trail.is_open %}
                 CLOSED
