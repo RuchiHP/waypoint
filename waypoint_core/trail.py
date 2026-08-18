@@ -1,9 +1,11 @@
-from distance import Distance
+from abc import ABC, abstractmethod
+from waypoint_core.distance import Distance
 
 
-class Trail:
-    """Represents a hiking trail with a name, distance, elevation gain,
-    and a difficulty level guarded by validation."""
+class Trail(ABC):
+    """Abstract base for all trail types. Subclasses must implement
+    estimated_time() and summary(), since how a trail's time and
+    summary are computed genuinely differs by trail type."""
 
     DEFAULT_UNIT = "km"
     VALID_DIFFICULTIES = ("easy", "moderate", "hard")
@@ -16,7 +18,7 @@ class Trail:
         self._difficulty = None
         self.set_difficulty(difficulty)
 
-    # ---- properties (read access to protected state) ----
+    # ---- properties ----
     @property
     def trail_id(self):
         return self._trail_id
@@ -43,7 +45,11 @@ class Trail:
             raise ValueError(f"Difficulty must be one of {self.VALID_DIFFICULTIES}.")
         self._difficulty = difficulty
 
-    # ---- WP-103: static validator ----
+    def packing_list(self):
+        """Default packing list. Subclasses that need more should
+        call super().packing_list() and extend it, not replace it."""
+        return ["map", "water", "first aid kit"]
+
     @staticmethod
     def _valid_difficulty(difficulty):
         return difficulty in Trail.VALID_DIFFICULTIES
@@ -52,13 +58,20 @@ class Trail:
     def _valid_distance(magnitude):
         return magnitude >= 0
 
-    # ---- WP-103: alternate constructor from an API-shaped dict ----
+    # ---- WP-201: abstract methods every trail type must implement ----
+    @abstractmethod
+    def estimated_time(self):
+        """Return estimated completion time in hours (float)."""
+        raise NotImplementedError
+
+    @abstractmethod
+    def summary(self):
+        """Return a short human-readable description of the trail."""
+        raise NotImplementedError
+
+    # ---- alternate constructor from an API-shaped dict ----
     @classmethod
     def from_dict(cls, data):
-        """Build a Trail from a dict like:
-        {"id": 1, "name": "Bruce Trail", "distance_km": 12.5,
-         "elevation_gain_m": 300, "difficulty": "moderate"}
-        """
         if not cls._valid_distance(data["distance_km"]):
             raise ValueError("Distance magnitude cannot be negative.")
         distance = Distance(data["distance_km"], cls.DEFAULT_UNIT)
@@ -70,11 +83,14 @@ class Trail:
             difficulty=data["difficulty"],
         )
 
-    # ---- WP-104: equality based on id ----
+    # ---- equality based on id ----
     def __eq__(self, other):
         if not isinstance(other, Trail):
             return NotImplemented
         return self._trail_id == other._trail_id
 
+    def __hash__(self):
+        return hash(self._trail_id)
+
     def __repr__(self):
-        return f"Trail({self._trail_id!r}, {self._name!r}, {self._distance.magnitude}{self._distance.unit})"
+        return f"{type(self).__name__}({self._trail_id!r}, {self._name!r}, {self._distance.magnitude}{self._distance.unit})"
