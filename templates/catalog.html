@@ -2,13 +2,14 @@
 {% block content %}
 <h2>Trail Catalog</h2>
 <table>
-    <tr><th>#</th><th>Name</th><th>Distance (km)</th><th>Elevation (m)</th><th>Status</th></tr>
+    <tr><th>#</th><th>Name</th><th>Distance (km)</th><th>Elevation (m)</th><th>Park</th><th>Status</th></tr>
     {% for trail in trails %}
     <tr>
         <td>{{ forloop.counter }}</td>
         <td>{{ trail.name }}</td>
         <td>{{ trail.distance_km|floatformat:1 }}</td>
         <td>{{ trail.elevation_gain }}</td>
+        <td>{% if trail.park %}{{ trail.park.name }}{% else %}Unassigned{% endif %}</td>
         <td>
             {% if not trail.is_open %}
                 CLOSED
