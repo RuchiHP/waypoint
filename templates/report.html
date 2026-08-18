@@ -1,8 +1,5 @@
-{% load static %}
-<!DOCTYPE html>
-<html><head><link rel="stylesheet" href="{% static 'css/style.css' %}"></head>
-<body>
-<main>
+{% extends "base.html" %}
+{% block content %}
 <h2>Report a Trail</h2>
 <form method="post">
     {% csrf_token %}
@@ -12,5 +9,4 @@
     <label>Note</label><textarea name="note"></textarea>
     <button type="submit">Submit</button>
 </form>
-</main>
-</body></html>
+{% endblock %}
