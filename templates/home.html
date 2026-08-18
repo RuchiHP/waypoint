@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header>
+    <h1>Waypoint</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/report/">Report a Trail</a>
+        <a href="/search/">Search</a>
+    </nav>
+</header>
+<main>
+    <h2>{{ greeting }}</h2>
+</main>
+</body>
+</html>
